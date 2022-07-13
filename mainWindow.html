@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <title>Profiter314</title>
+</head>
+<body>
+  <h1>Profiter 314</h1>
+  <div>
+    <form>
+      <div class="form-container">
+        <div class="settings-group">
+          <h3>General</h3>
+          <div class="input-group">
+            <label>Days</label>
+            <br>
+            <input type="text" placeholder="5" id="g-days">
+          </div>
+          <div class="input-group">
+            <label>Start Price</label>
+            <br>
+            <input type="text" placeholder="5" id="s-start">
+          </div>
+          <div class="input-group">
+            <label>End Price</label>
+            <br>
+            <input type="text" placeholder="5" id="s-end">
+          </div>
+          <div class="input-group">
+            <label>Fluctuation</label>
+            <br>
+            <input type="text" placeholder="5" id="s-fluc">
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <h3>B-Side</h3>
+          <div class="input-group">
+            <label>Start EUR</label>
+            <br>
+            <input type="text" placeholder="0" id="b-eur">
+          </div>
+          <div class="input-group">
+            <label>Start NEAR</label>
+            <br>
+            <input type="text" placeholder="0" id="b-near">
+          </div>
+          <div class="input-group">
+            <label>max N/h</label>
+            <br>
+            <input type="text" placeholder="0" id="b-max-exchange">
+          </div>
+          <div class="input-group">
+            <label>B-Side cut</label>
+            <br>
+            <input type="text" placeholder="0" id="b-bside-cut">
+          </div>
+          <div class="input-group">
+            <label>Echange fee</label>
+            <br>
+            <input type="text" placeholder="0" id="b-exchange-fee">
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <h3>Musicians</h3>
+          <div class="input-group">
+            <label>Amount</label>
+            <br>
+            <input type="text" placeholder="5" id="m-amount">
+          </div>
+          <div class="input-group">
+            <label>Days Between Releases</label>
+            <br>
+            <input type="text" placeholder="5" id="m-days-between">
+            <input type="text" placeholder="5" id="m-days-between-fluc">
+          </div>
+          <div class="input-group">
+            <label>NFTs per Release</label>
+            <br>
+            <input type="text" placeholder="5" id="m-nfts-per-release">
+            <input type="text" placeholder="5" id="m-nfts-per-release-fluc">
+          </div>
+          <div class="input-group">
+            <label>Price per NFT</label>
+            <br>
+            <input type="text" placeholder="5" id="m-price-per-nft">
+            <input type="text" placeholder="5" id="m-price-per-nft-fluc">
+          </div>
+          <div class="input-group">
+            <label>Popularity</label>
+            <br>
+            <input type="text" placeholder="5" id="m-popularity">
+            <input type="text" placeholder="5" id="m-popularity-fluc">
+          </div>
+          <div class="input-group">
+            <label>Krypto Acceptance</label>
+            <br>
+            <input type="text" placeholder="5" id="m-krypto-accept">
+            <input type="text" placeholder="5" id="m-krypto-accept-fluc">
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <h3>Clients</h3>
+          <div class="input-group">
+            <label>Amount</label>
+            <br>
+            <input type="text" placeholder="5" id="c-amount">
+          </div>
+          <div class="input-group">
+            <label>Capital</label>
+            <br>
+            <input type="text" placeholder="5" id="c-capital">
+            <input type="text" placeholder="5" id="c-capital-fluc">
+          </div>
+          <div class="input-group">
+            <label>Buy Motivation</label>
+            <br>
+            <input type="text" placeholder="5" id="c-buy-mot">
+            <input type="text" placeholder="5" id="c-buy-mot-fluc">
+          </div>
+          <div class="input-group">
+            <label>Resell Motivation</label>
+            <br>
+            <input type="text" placeholder="5" id="c-resell-mot">
+            <input type="text" placeholder="5" id="c-resell-mot-fluc">
+          </div>
+          <div class="input-group">
+            <label>Loyalty</label>
+            <br>
+            <input type="text" placeholder="5" id="c-loyalty">
+            <input type="text" placeholder="5" id="c-loyalty-fluc">
+          </div>
+          <div class="input-group">
+            <label>Krypto Acceptance</label>
+            <br>
+            <input type="text" placeholder="5" id="c-krypto-accept">
+            <input type="text" placeholder="5" id="c-krypto-accept-fluc">
+          </div>
+          <div class="input-group">
+            <label>Krypto Acceptance</label>
+            <br>
+            <input type="text" placeholder="5" id="c-musicians-per-day">
+            <input type="text" placeholder="5" id="c-musicians-per-day-fluc">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="button-container">
+        <button type="submit" >Simulate</button>
+      </div>
+
+    </form>
+
+
+
+  </div>
+  <script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    // const Overseer = require('./Profiter/Overseer');
+    // const settings = require('electron-settings');
+
+    document.querySelector('form').addEventListener('submit', submitSettings);
+
+    ipcRenderer.on('settings:get', function(err, settings) {
+
+      let config = JSON.parse(settings)
+      console.log("congif");
+      console.log(config);
+      document.querySelector('#g-days').placeholder = config.General.days;
+      document.querySelector('#s-start').placeholder = config.Random_Stock.Start_Price;
+      document.querySelector('#s-end').placeholder = config.Random_Stock.End_Price;
+      document.querySelector('#s-fluc').placeholder = config.Random_Stock.Stock_Fluctuation;
+
+      document.querySelector('#b-eur').placeholder = config.B_Side.Capital_EUR;
+      document.querySelector('#b-near').placeholder = config.B_Side.Capital_NEAR;
+      document.querySelector('#b-max-exchange').placeholder = config.B_Side.Max_Exchange_Per_Hour;
+      document.querySelector('#b-bside-cut').placeholder = config.B_Side.BSide_Cut;
+      document.querySelector('#b-exchange-fee').placeholder = config.B_Side.Exchange_Fee;
+
+      document.querySelector('#m-amount').placeholder = config.Random_Musician.Amount_Musician;
+      document.querySelector('#m-days-between').placeholder = config.Random_Musician.Days_Between_Releases;
+      document.querySelector('#m-days-between-fluc').placeholder = config.Random_Musician.Days_Between_Releases_Fluctuation;
+      document.querySelector('#m-nfts-per-release').placeholder = config.Random_Musician.NFTs_Per_Release;
+      document.querySelector('#m-nfts-per-release-fluc').placeholder = config.Random_Musician.NFTs_Per_Release_Fluctuation;
+      document.querySelector('#m-price-per-nft').placeholder = config.Random_Musician.Sell_Price;
+      document.querySelector('#m-price-per-nft-fluc').placeholder = config.Random_Musician.Sell_Price_Fluctuation;
+      document.querySelector('#m-popularity').placeholder = config.Random_Musician.Popularity;
+      document.querySelector('#m-popularity-fluc').placeholder = config.Random_Musician.Popularity_Fluctuation;
+      document.querySelector('#m-krypto-accept').placeholder = config.Random_Musician.Krypto_Acceptance_Musician;
+      document.querySelector('#m-krypto-accept-fluc').placeholder = config.Random_Musician.Krypto_Acceptance_Musician_Fluctuation;
+
+      document.querySelector('#c-amount').placeholder = config.Random_Client.Amount_Client;
+      document.querySelector('#c-capital').placeholder = config.Random_Client.Capital_Client;
+      document.querySelector('#c-capital-fluc').placeholder = config.Random_Client.Capital_Client_Fluctuation;
+      document.querySelector('#c-buy-mot').placeholder = config.Random_Client.Buy_Motivation;
+      document.querySelector('#c-buy-mot-fluc').placeholder = config.Random_Client.Buy_Motivation_Fluctuation;
+      document.querySelector('#c-resell-mot').placeholder = config.Random_Client.Resell_Motivation;
+      document.querySelector('#c-resell-mot-fluc').placeholder = config.Random_Client.Resell_Motivation_Fluctuation;
+      document.querySelector('#c-loyalty').placeholder = config.Random_Client.Loyalty;
+      document.querySelector('#c-loyalty-fluc').placeholder = config.Random_Client.Loyalty_Fluctuation;
+      document.querySelector('#c-krypto-accept').placeholder = config.Random_Client.Krypto_Acceptance_Client;
+      document.querySelector('#c-krypto-accept-fluc').placeholder = config.Random_Client.Krypto_Acceptance_Client_Fluctuation;
+      document.querySelector('#c-musicians-per-day').placeholder = config.Random_Client.Musicians_Per_Day;
+      document.querySelector('#c-musicians-per-day-fluc').placeholder = config.Random_Client.Musicians_Per_Day_Fluctuation;
+    })
+
+    function submitSettings(e){
+
+      e.preventDefault();
+      console.log("click");
+      let config = {
+        g_days: document.querySelector('#g-days').value,
+        s_start: document.querySelector('#s-start').value,
+        s_end: document.querySelector('#s-end').value,
+        s_fluc: document.querySelector('#s-fluc').value,
+        b_eur: document.querySelector('#b-eur').value,
+        b_near: document.querySelector('#b-near').value,
+        b_max_exchange: document.querySelector('#b-max-exchange').value,
+        b_bside_cut: document.querySelector('#b-bside-cut').value,
+        b_exchange_fee: document.querySelector('#b-exchange-fee').value,
+        m_amount: document.querySelector('#m-amount').value,
+        m_days_between: document.querySelector('#m-days-between').value,
+        m_days_between_fluc: document.querySelector('#m-days-between-fluc').value,
+        m_nfts_per_release: document.querySelector('#m-nfts-per-release').value,
+        m_nfts_per_release_fluc: document.querySelector('#m-nfts-per-release-fluc').value,
+        m_price_per_nft: document.querySelector('#m-price-per-nft').value,
+        m_price_per_nft_fluc: document.querySelector('#m-price-per-nft-fluc').value,
+        m_popularity: document.querySelector('#m-popularity').value,
+        m_popularity_fluc: document.querySelector('#m-popularity-fluc').value,
+        m_krypto_accept: document.querySelector('#m-krypto-accept').value,
+        m_krypto_accept_fluc: document.querySelector('#m-krypto-accept-fluc').value,
+        c_amount: document.querySelector('#c-amount').value,
+        c_capital: document.querySelector('#c-capital').value,
+        c_capital_fluc: document.querySelector('#c-capital-fluc').value,
+        c_buy_mot: document.querySelector('#c-buy-mot').value,
+        c_buy_mot_fluc: document.querySelector('#c-buy-mot-fluc').value,
+        c_resell_mot: document.querySelector('#c-resell-mot').value,
+        c_resell_mot_fluc: document.querySelector('#c-resell-mot-fluc').value,
+        c_loyalty: document.querySelector('#c-loyalty').value,
+        c_loyalty_fluc: document.querySelector('#c-loyalty-fluc').value,
+        c_krypto_accept: document.querySelector('#c-krypto-accept').value,
+        c_krypto_accept_fluc: document.querySelector('#c-krypto-accept-fluc').value,
+        c_musicians_per_day: document.querySelector('#c-musicians-per-day').value,
+        c_musicians_per_day_fluc: document.querySelector('#c-musicians-per-day-fluc').value
+      }
+      console.log(JSON.stringify(config));
+
+      if (!config.g_days == "") {
+        console.log(config.g_days);
+      }
+
+      ipcRenderer.send('settings:set', { config: JSON.stringify(config) });
+    }
+
+  </script>
+
+</body>
+</html>

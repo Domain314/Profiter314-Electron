@@ -1,0 +1,15 @@
+{
+  "name": "profter-electron31",
+  "version": "1.0.0",
+  "description": "second try",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "electron": "^19.0.8",
+    "electron-settings": "^4.0.2"
+  }
+}

@@ -1,0 +1,43 @@
+body {
+  background-color:#100;
+  margin: 0px;
+  padding: 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #eff;
+}
+
+h1 {
+  /* width: 100%; */
+  text-align: center;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* grid-template-rows: 2fr 1fr 1fr; */
+}
+
+button {
+  width: 120px;
+  height: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.settings-group {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  /* min-width: 180px; */
+}
+
+.input-group {
+  margin-bottom: 8px;
+}
